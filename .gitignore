@@ -1,0 +1,6 @@
+demo/node_modules
+
+# Editor directories and files
+demo/.vscode/*
+demo/!.vscode/extensions.json
+demo/.DS_Store
