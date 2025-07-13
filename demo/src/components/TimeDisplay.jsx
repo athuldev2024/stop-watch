@@ -20,4 +20,6 @@ function TimeDisplay({ displayTime }) {
   return <TimeContainer>{displayTime}</TimeContainer>;
 }
 
-export default React.memo(TimeDisplay);
+export default React.memo(TimeDisplay, (prevProps, nextProps) => {
+  prevProps.displayTime === nextProps.displayTime;
+});
