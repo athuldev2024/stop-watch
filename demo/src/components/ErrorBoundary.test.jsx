@@ -2,11 +2,11 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import ErrorBoundary from "./ErrorBoundary";
 
-function ProblemChild() {
-  throw new Error("Test error!");
-}
-
 describe("ErrorBoundary", () => {
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
+
   it("renders children without error", () => {
     render(
       <ErrorBoundary>
@@ -18,8 +18,9 @@ describe("ErrorBoundary", () => {
   });
 
   it("catches error and displays error message", () => {
-    // Suppress error logs in test output
-    jest.spyOn(console, "error").mockImplementation(() => {});
+    function ProblemChild() {
+      throw new Error("Test error!");
+    }
 
     render(
       <ErrorBoundary>
@@ -28,8 +29,5 @@ describe("ErrorBoundary", () => {
     );
 
     expect(screen.getByText("Test error!")).toBeInTheDocument();
-
-    // Restore console
-    console.error.mockRestore();
   });
 });
