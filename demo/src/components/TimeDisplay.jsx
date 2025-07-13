@@ -1,7 +1,9 @@
-// components/TimeDisplay.jsx
+import React from "react";
 import styled from "styled-components";
 
 const TimeContainer = styled.div`
+  width: 24rem;
+  height: 8rem;
   font-family: "Orbitron", sans-serif;
   font-size: 5rem;
   color: #000;
@@ -14,18 +16,8 @@ const TimeContainer = styled.div`
   letter-spacing: 0.15rem;
 `;
 
-function TimeDisplay({ time }) {
-  const formatTime = () => {
-    const getTwoDigits = (num) => String(num).padStart(2, "0");
-
-    const minutes = getTwoDigits(Math.floor(time / 60000) % 60);
-    const seconds = getTwoDigits(Math.floor(time / 1000) % 60);
-    const milliseconds = getTwoDigits(Math.floor((time % 1000) / 10));
-
-    return `${minutes}:${seconds}.${milliseconds}`;
-  };
-
-  return <TimeContainer>{formatTime()}</TimeContainer>;
+function TimeDisplay({ displayTime }) {
+  return <TimeContainer>{displayTime}</TimeContainer>;
 }
 
-export default TimeDisplay;
+export default React.memo(TimeDisplay);
