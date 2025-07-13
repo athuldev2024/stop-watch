@@ -13,12 +13,12 @@ const ButtonContainerStyleComp = styled.div`
   align-items: center;
 `;
 
-function ButtonContainer() {
+function ButtonContainer({ setTime }) {
   return (
     <ButtonContainerStyleComp>
-      <StartButton />
-      <PauseButton />
-      <ResetButton />
+      <StartButton {...{ setTime }} />
+      <PauseButton {...{ setTime }} />
+      <ResetButton {...{ setTime }} />
     </ButtonContainerStyleComp>
   );
 }

@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import COLORS from "@constants/colors";
-import ButtonContainer from "@components/ButtonContainer";
+import ButtonContainer from "@components/buttons/ButtonContainer";
+import TimeDisplay from "@components/TimeDisplay";
 
 const BodyContainer = styled.div`
   background-color: ${() => COLORS.PRIMARY};
@@ -10,9 +11,12 @@ const BodyContainer = styled.div`
 `;
 
 function Body() {
+  const [time, setTime] = useState(0);
+
   return (
     <BodyContainer>
-      <ButtonContainer />
+      <TimeDisplay time={time} />
+      <ButtonContainer setTime={setTime} />
     </BodyContainer>
   );
 }
