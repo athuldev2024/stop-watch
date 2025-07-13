@@ -3,10 +3,6 @@ import { render, screen } from "@testing-library/react";
 import ErrorBoundary from "./ErrorBoundary";
 
 describe("ErrorBoundary", () => {
-  afterEach(() => {
-    vi.clearAllMocks();
-  });
-
   it("renders children without error", () => {
     render(
       <ErrorBoundary>
@@ -18,6 +14,10 @@ describe("ErrorBoundary", () => {
   });
 
   it("catches error and displays error message", () => {
+    const consoleErrorSpy = vi
+      .spyOn(console, "error")
+      .mockImplementation(() => {});
+
     function ProblemChild() {
       throw new Error("Test error!");
     }
@@ -29,5 +29,6 @@ describe("ErrorBoundary", () => {
     );
 
     expect(screen.getByText("Test error!")).toBeInTheDocument();
+    consoleErrorSpy.mockRestore();
   });
 });
