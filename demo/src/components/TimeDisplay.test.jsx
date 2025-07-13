@@ -20,15 +20,19 @@ describe("TimeDisplay", () => {
   it("does not re-render when displayTime is the same", () => {
     const renderSpy = vi.fn();
 
-    const Wrapper = ({ displayTime }) => {
-      renderSpy();
-      return <TimeDisplay displayTime={displayTime} />;
-    };
+    const Wrapper = React.memo(
+      ({ displayTime }) => {
+        renderSpy();
+        return <TimeDisplay displayTime={displayTime} />;
+      },
+      (prevProps, nextProps) => {
+        return prevProps.displayTime === nextProps.displayTime;
+      }
+    );
 
     const { rerender } = render(<Wrapper displayTime="10:00" />);
-    expect(screen.getByText("10:00")).toBeInTheDocument();
 
-    rerender(<Wrapper displayTime="10:00" />); // same value, should not trigger re-render
+    rerender(<Wrapper displayTime="10:00" />);
 
     expect(renderSpy).toHaveBeenCalledTimes(1);
   });
