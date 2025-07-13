@@ -18,7 +18,7 @@ const FooterContainer = styled.footer`
 function Footer() {
   return (
     <FooterContainer>
-      &copy; ${currentDate()} Stopwatch application
+      &copy; {currentDate()} Stopwatch application
     </FooterContainer>
   );
 }
