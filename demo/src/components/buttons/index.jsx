@@ -25,6 +25,8 @@ const BaseButton = styled.button`
     opacity: 0.7;
     transform: scale(0.98);
   }
+  opacity: ${(props) => (props.disabled ? 0.5 : 1)};
+  cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
 `;
 
 function StartButton({ onClick }) {
@@ -43,9 +45,13 @@ function PauseButton({ onClick }) {
   );
 }
 
-function ResetButton({ onClick }) {
+function ResetButton({ onClick, disabled }) {
   return (
-    <BaseButton style={{ backgroundColor: COLORS.RESET }} onClick={onClick}>
+    <BaseButton
+      style={{ backgroundColor: COLORS.RESET }}
+      onClick={onClick}
+      disabled={disabled}
+    >
       <FontAwesomeIcon icon={faRotateLeft} />
     </BaseButton>
   );

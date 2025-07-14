@@ -4,7 +4,7 @@ import COLORS from "@constants/colors";
 import ButtonContainer from "@components/buttons/ButtonContainer";
 import TimeDisplay from "@components/TimeDisplay";
 import { formattedTime } from "@utils/date-utils";
-import { ProgressContext } from "@context/progressContext";
+import { StopWatchContext } from "@context";
 
 const BodyContainer = styled.div`
   background-color: ${() => COLORS.PRIMARY};
@@ -50,10 +50,10 @@ function Body() {
 
   return (
     <BodyContainer>
-      <ProgressContext.Provider value={{ isRunning }}>
+      <StopWatchContext.Provider value={{ isRunning }}>
         <TimeDisplay displayTime={displayTime} />
         <ButtonContainer {...{ onStart, onPause, onReset }} />
-      </ProgressContext.Provider>
+      </StopWatchContext.Provider>
     </BodyContainer>
   );
 }

@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import COLORS from "@constants/colors";
 import { StartButton, PauseButton, ResetButton } from "@components/buttons";
+import { StopWatchContext } from "@context";
 
 const ButtonContainerStyleComp = styled.div`
   width: 18rem;
@@ -14,11 +15,13 @@ const ButtonContainerStyleComp = styled.div`
 `;
 
 function ButtonContainer({ onStart, onPause, onReset }) {
+  const { isRunning } = useContext(StopWatchContext);
+
   return (
     <ButtonContainerStyleComp>
-      <StartButton onClick={onStart} />
-      <PauseButton onClick={onPause} />
-      <ResetButton onClick={onReset} />
+      {!isRunning && <StartButton onClick={onStart} />}
+      {isRunning && <PauseButton onClick={onPause} />}
+      <ResetButton onClick={onReset} disabled={isRunning} />
     </ButtonContainerStyleComp>
   );
 }
