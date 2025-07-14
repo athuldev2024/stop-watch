@@ -1,11 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import COLORS from "@constants/colors";
-import {
-  StartButton,
-  PauseButton,
-  ResetButton,
-} from "@components/buttons/Buttons";
+import { StartButton, PauseButton, ResetButton } from "@components/buttons";
 
 const ButtonContainerStyleComp = styled.div`
   width: 18rem;

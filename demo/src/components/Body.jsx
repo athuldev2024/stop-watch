@@ -1,9 +1,10 @@
-import React, { useState, useRef, useMemo } from "react";
+import React, { useState, useRef, useMemo, createContext } from "react";
 import styled from "styled-components";
 import COLORS from "@constants/colors";
 import ButtonContainer from "@components/buttons/ButtonContainer";
 import TimeDisplay from "@components/TimeDisplay";
 import { formattedTime } from "@utils/date-utils";
+import { ProgressContext } from "@context/progressContext";
 
 const BodyContainer = styled.div`
   background-color: ${() => COLORS.PRIMARY};
@@ -49,8 +50,10 @@ function Body() {
 
   return (
     <BodyContainer>
-      <TimeDisplay displayTime={displayTime} />
-      <ButtonContainer {...{ onStart, onPause, onReset }} />
+      <ProgressContext.Provider value={{ isRunning }}>
+        <TimeDisplay displayTime={displayTime} />
+        <ButtonContainer {...{ onStart, onPause, onReset }} />
+      </ProgressContext.Provider>
     </BodyContainer>
   );
 }
