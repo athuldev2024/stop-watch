@@ -23,7 +23,7 @@ const Title = styled.h1`
 function Header() {
   return (
     <HeaderContainer>
-      <Title>
+      <Title data-testid="header-title">
         <FontAwesomeIcon icon={faStopwatch} style={{ marginRight: "8px" }} />
       </Title>
     </HeaderContainer>
