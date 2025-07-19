@@ -29,28 +29,37 @@ const BaseButton = styled.button`
   cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
 `;
 
-function StartButton({ onClick }) {
+function StartButton({ onClick, ...rest }) {
   return (
-    <BaseButton style={{ backgroundColor: COLORS.START }} onClick={onClick}>
+    <BaseButton
+      style={{ backgroundColor: COLORS.START }}
+      onClick={onClick}
+      {...rest}
+    >
       <FontAwesomeIcon icon={faPlay} />
     </BaseButton>
   );
 }
 
-function PauseButton({ onClick }) {
+function PauseButton({ onClick, ...rest }) {
   return (
-    <BaseButton style={{ backgroundColor: COLORS.PAUSE }} onClick={onClick}>
+    <BaseButton
+      style={{ backgroundColor: COLORS.PAUSE }}
+      onClick={onClick}
+      {...rest}
+    >
       <FontAwesomeIcon icon={faPause} />
     </BaseButton>
   );
 }
 
-function ResetButton({ onClick, disabled }) {
+function ResetButton({ onClick, disabled, ...rest }) {
   return (
     <BaseButton
       style={{ backgroundColor: COLORS.RESET }}
       onClick={onClick}
       disabled={disabled}
+      {...rest}
     >
       <FontAwesomeIcon icon={faRotateLeft} />
     </BaseButton>
