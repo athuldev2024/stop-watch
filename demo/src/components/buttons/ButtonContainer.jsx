@@ -19,10 +19,9 @@ function ButtonContainer({ onStart, onPause, onReset }) {
 
   return (
     <ButtonContainerStyleComp>
-      {!isRunning && (
+      {!isRunning ? (
         <StartButton data-testid="start-button" onClick={onStart} />
-      )}
-      {isRunning && (
+      ) : (
         <PauseButton data-testid="pause-button" onClick={onPause} />
       )}
       <ResetButton
