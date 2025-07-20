@@ -1,60 +1,76 @@
-import React from "react";
+import React, { useState } from "react";
 import { render, screen, waitFor, fireEvent } from "@testing-library/react";
 import ButtonContainer from "./ButtonContainer";
 import { StopWatchContext } from "@context";
-import { expect } from "playwright/test";
+import { vi, describe, test, expect } from "vitest";
 
 describe("ButtonContainer", () => {
   const onStart = vi.fn();
   const onPause = vi.fn();
   const onReset = vi.fn();
 
-  const renderButtonContainer = (isRunning = false) => {
-    render(
+  const TestWrapper = ({ initialRunning }) => {
+    const [isRunning, setIsRunning] = useState(initialRunning);
+
+    return (
       <StopWatchContext.Provider value={{ isRunning }}>
         <ButtonContainer
-          onStart={onStart}
-          onPause={onPause}
+          onStart={() => {
+            setIsRunning(true);
+            onStart();
+          }}
+          onPause={() => {
+            setIsRunning(false);
+            onPause();
+          }}
           onReset={onReset}
         />
       </StopWatchContext.Provider>
     );
   };
+
   test("renders start button and able to click it when not running", async () => {
-    renderButtonContainer();
+    render(<TestWrapper initialRunning={false} />);
 
-    const startButton = screen.getByTestId("start-button");
+    expect((await screen.findByTestId("reset-button")).disabled).toBe(false);
 
-    expect(screen.getByTestId("reset-button")).not.toBeDisabled();
+    const startButton = await screen.findByTestId("start-button");
+    expect(startButton).toBeInTheDocument();
 
     fireEvent.click(startButton);
 
-    await waitFor(() => {
+    await waitFor(async () => {
+      expect((await screen.findByTestId("reset-button")).disabled).toBe(true);
       expect(onStart).toHaveBeenCalled();
-      expect(screen.getByTestId("reset-button")).toBeDisabled();
+    });
+  });
+
+  test("renders pause button and able to click it when running", async () => {
+    render(<TestWrapper initialRunning={true} />);
+
+    expect((await screen.findByTestId("reset-button")).disabled).toBe(true);
+
+    const pauseButton = await screen.findByTestId("pause-button");
+    expect(pauseButton).toBeInTheDocument();
+
+    fireEvent.click(pauseButton);
+
+    await waitFor(async () => {
+      expect((await screen.findByTestId("reset-button")).disabled).toBe(false);
+      expect(onPause).toHaveBeenCalled();
     });
   });
 
   test("renders pause button and able to click it when not running", async () => {
-    renderButtonContainer(true);
+    render(<TestWrapper initialRunning={false} />);
 
-    const pauseButton = screen.getByTestId("pause-button");
+    expect((await screen.findByTestId("reset-button")).disabled).toBe(false);
+    const resetButton = await screen.findByTestId("reset-button");
 
-    expect(screen.getByTestId("reset-button")).toBeDisabled();
+    fireEvent.click(resetButton);
 
-    fireEvent.click(pauseButton);
-
-    await waitFor(() => {
-      expect(onPause).toHaveBeenCalled();
-      expect(screen.getByTestId("reset-button")).not.toBeDisabled();
+    await waitFor(async () => {
+      expect(onReset).toHaveBeenCalled();
     });
-  });
-
-  test("renders reset button and able to click it when not running", () => {
-    renderButtonContainer(false);
-
-    let buttons = screen.queryAllByRole("button");
-    buttons[1].click();
-    expect(onReset).toHaveBeenCalled();
   });
 });
