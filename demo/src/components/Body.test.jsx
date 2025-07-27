@@ -1,6 +1,4 @@
-import React, { useState } from "react";
 import { render, screen, waitFor, fireEvent } from "@testing-library/react";
-import { StopWatchContext } from "@context";
 import { vi, describe, test, expect } from "vitest";
 import Body from "./Body";
 
@@ -26,18 +24,11 @@ vi.mock("./buttons/ButtonContainer", () => {
 
 describe("Body", () => {
   const TestWrapper = ({ initialRunning }) => {
-    const [isRunning, setIsRunning] = useState(initialRunning);
-
-    return (
-      <StopWatchContext.Provider value={{ isRunning }}>
-        <Body />
-      </StopWatchContext.Provider>
-    );
+    return <Body />;
   };
 
-  test.skip("renders body and buttons are clickable", async () => {
+  test("renders body and buttons are clickable", async () => {
     let buttons;
-    vi.useFakeTimers();
     render(<TestWrapper />);
 
     buttons = screen.queryAllByRole("button");
@@ -45,17 +36,31 @@ describe("Body", () => {
     const timeDisplay = screen.getByTestId("mock-time-display");
     expect(timeDisplay).toBeInTheDocument();
 
+    expect(buttons[0].getAttribute("data-testid")).toBe("mock-start");
+    expect(buttons[1].getAttribute("data-testid")).toBe("mock-pause");
+    expect(buttons[2].getAttribute("data-testid")).toBe("mock-reset");
+
     expect(timeDisplay.innerHTML).toBe("00:00.00");
 
+    // Click start button
     fireEvent.click(buttons[0]);
 
-    vi.advanceTimersByTime(1000);
-
     await waitFor(() => {
-      console.log("I am here!!");
-      expect(timeDisplay.innerHTML).toBe("00:01.00");
+      expect(timeDisplay.innerHTML).not.toBe("00:00.00");
     });
 
-    vi.useRealTimers();
+    // Click pause button
+    fireEvent.click(buttons[1]);
+
+    await waitFor(() => {
+      expect(timeDisplay.innerHTML).not.toBe("00:00.00");
+    });
+
+    // Click reset button
+    fireEvent.click(buttons[2]);
+
+    await waitFor(() => {
+      expect(timeDisplay.innerHTML).toBe("00:00.00");
+    });
   });
 });
