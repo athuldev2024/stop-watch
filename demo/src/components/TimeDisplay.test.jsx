@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import TimeDisplay from "./TimeDisplay";
 import React from "react";
+import { describe, it, expect } from "@jest/globals";
 
 describe("TimeDisplay", () => {
   it("renders the correct time text", () => {
@@ -27,7 +28,7 @@ describe("TimeDisplay", () => {
       },
       (prevProps, nextProps) => {
         return prevProps.displayTime === nextProps.displayTime;
-      },
+      }
     );
 
     const { rerender } = render(<Wrapper displayTime="10:00" />);

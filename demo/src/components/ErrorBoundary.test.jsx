@@ -1,13 +1,14 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import ErrorBoundary from "./ErrorBoundary";
+import { describe, it, expect } from "@jest/globals";
 
 describe("ErrorBoundary", () => {
   it("renders children without error", () => {
     render(
       <ErrorBoundary>
         <div>Working fine</div>
-      </ErrorBoundary>,
+      </ErrorBoundary>
     );
 
     expect(screen.getByText("Working fine")).toBeInTheDocument();
@@ -25,7 +26,7 @@ describe("ErrorBoundary", () => {
     render(
       <ErrorBoundary>
         <ProblemChild />
-      </ErrorBoundary>,
+      </ErrorBoundary>
     );
 
     expect(screen.getByText("Test error!")).toBeInTheDocument();
