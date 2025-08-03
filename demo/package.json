@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest run",
-    "test:file": "vitest run"
+    "test:file": "vitest run",
+    "format": "prettier --write \"./**/*.{js,jsx,json,css,md}\""
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.7.2",

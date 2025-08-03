@@ -1,4 +1,4 @@
-import { Header,Body,  Footer } from "@components";
+import { Header, Body, Footer } from "@components";
 
 function App() {
   return (

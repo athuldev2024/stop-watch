@@ -27,7 +27,7 @@ describe("TimeDisplay", () => {
       },
       (prevProps, nextProps) => {
         return prevProps.displayTime === nextProps.displayTime;
-      }
+      },
     );
 
     const { rerender } = render(<Wrapper displayTime="10:00" />);

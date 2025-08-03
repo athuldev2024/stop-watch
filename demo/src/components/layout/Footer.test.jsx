@@ -10,7 +10,7 @@ describe("Footer", () => {
     render(<Footer />);
 
     expect(
-      screen.getByText(`© 2025 Stopwatch application`)
+      screen.getByText(`© 2025 Stopwatch application`),
     ).toBeInTheDocument();
   });
 });

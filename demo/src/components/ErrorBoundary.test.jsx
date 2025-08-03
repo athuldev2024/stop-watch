@@ -7,7 +7,7 @@ describe("ErrorBoundary", () => {
     render(
       <ErrorBoundary>
         <div>Working fine</div>
-      </ErrorBoundary>
+      </ErrorBoundary>,
     );
 
     expect(screen.getByText("Working fine")).toBeInTheDocument();
@@ -25,7 +25,7 @@ describe("ErrorBoundary", () => {
     render(
       <ErrorBoundary>
         <ProblemChild />
-      </ErrorBoundary>
+      </ErrorBoundary>,
     );
 
     expect(screen.getByText("Test error!")).toBeInTheDocument();
