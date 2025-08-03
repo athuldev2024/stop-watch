@@ -15,18 +15,15 @@ export default defineConfig([
     ],
     languageOptions: {
       ecmaVersion: 2020,
-      globals: globals.browser,
       parserOptions: {
         ecmaVersion: "latest",
         ecmaFeatures: { jsx: true },
         sourceType: "module",
       },
-    },
-    plugins: {
-      vitest,
-    },
-    languageOptions: {
-      globals: vitest.environments.globals.globals,
+      globals: {
+        ...globals.browser,
+        vi: "readonly",
+      },
     },
     rules: {
       "no-unused-vars": ["error", { varsIgnorePattern: "^[A-Z_]" }],

@@ -1,4 +1,5 @@
-import { currentDate, formattedTime } from "./date-utils";
+import { formattedTime } from "./date-utils";
+import { describe, it, expect } from "vitest";
 
 describe("formattedTime", () => {
   it("formats time correctly for 0ms", () => {
