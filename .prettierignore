@@ -1,0 +1,13 @@
+node_modules/
+dist/
+build/
+.vite/
+coverage/
+test-report/
+
+.vscode/
+*.png
+*.jpg
+*.jpeg
+*.gif
+.DS_Store
