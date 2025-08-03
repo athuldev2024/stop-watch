@@ -23,13 +23,9 @@ vi.mock("./buttons/ButtonContainer", () => {
 });
 
 describe("Body", () => {
-  const TestWrapper = ({ initialRunning }) => {
-    return <Body />;
-  };
-
   test("renders body and buttons are clickable", async () => {
     let buttons;
-    render(<TestWrapper />);
+    render(<Body />);
 
     buttons = screen.queryAllByRole("button");
 
